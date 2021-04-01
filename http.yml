@@ -1,0 +1,6 @@
+---
+- name: playbook for http.yml
+  hosts: webservers
+  become: true
+  roles:
+    - apache

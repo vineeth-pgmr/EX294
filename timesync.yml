@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+  vars:
+    timesync_ntp_servers:
+    - hostname: 172.20.111.111
+      iburst: yes
+
+  roles:
+    - /usr/share/ansible/roles/rhel-system-roles.timesync

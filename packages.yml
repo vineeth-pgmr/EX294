@@ -1,0 +1,28 @@
+---
+- name: file for packages.yml
+  hosts: all
+  become: True
+  vars:
+    pkgs:
+      - php
+      - mariadb
+  tasks:
+    - name: install php & mariadb in dev,test & prod host groups
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ pkgs }}"
+      when: inventory_hostname in groups['dev'] or inventory_hostname in groups['test'] or inventory_hostname in groups['prod']
+
+    - name: install "RPM Development tools" packages on dev host
+      yum:
+        name: "@RPM Development Tools"
+        state: present
+      when: inventory_hostname in groups['dev']
+
+    - name: update all packages in the dev host group
+      yum:
+        name: "*"
+        state: latest
+      when: inventory_hostname in groups['dev']
+

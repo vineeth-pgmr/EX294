@@ -1,0 +1,12 @@
+---
+- name: play for webserver group
+  hosts: webservers
+  become: true
+  roles:
+    - php
+
+- name: play for balancer group
+  hosts: balancer
+  become: true
+  roles:
+    - haproxy
