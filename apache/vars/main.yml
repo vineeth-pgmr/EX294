@@ -1,0 +1,8 @@
+---
+# vars file for apache
+pkgs:
+  - httpd
+  - firewalld
+rules:
+  - http
+  - https

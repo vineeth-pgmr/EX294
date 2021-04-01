@@ -1,0 +1,27 @@
+---
+# tasks file for apache
+- name: install packges
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ pkgs }}"
+
+- name: start & Enable the services
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: True
+  loop: "{{ pkgs }}"
+
+- name: adding firewall exeption
+  firewalld:
+    service: "{{ rules }}"
+    state: enabled
+    permanent: True
+    immediate: True
+
+- name: copy j2 file 
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+

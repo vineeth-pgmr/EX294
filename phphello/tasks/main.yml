@@ -1,0 +1,6 @@
+---
+# tasks file for php
+
+- template:
+    src: hello.php.j2
+    dest: /var/www/html/hello.php
