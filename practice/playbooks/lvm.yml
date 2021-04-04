@@ -1,0 +1,26 @@
+- hosts: all
+  tasks:
+          - lvol:
+                  lv: data
+                  vg: research
+                  size: 1500m
+            ignore_errors: yes
+            register: x
+
+          - block:
+                  - debug:
+                          msg: "Size not available"                 
+                  - lvol:
+                          lv: data
+                          vg: research
+                          size: 800m
+                    when: "'research' is defined"
+            when: x.failed ==  true
+
+          - filesystem:
+                  fstype: ext4
+                  dev: /dev/research/data
+
+          - debug:
+                  msg: "VG doesn't exists"
+            when: "'research' is undefined"

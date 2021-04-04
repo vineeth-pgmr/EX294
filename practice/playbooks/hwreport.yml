@@ -1,0 +1,47 @@
+- hosts: all
+  tasks:
+
+          - get_url:
+                  url: "<put url of hwreport file>"
+                 dest: "/root/hwreport.txt"
+ 
+         - replace:
+                  path: "/root/hwreport.txt"
+                  regexp: "hostname"
+                  replace: "{{ ansible_fqdn }}"
+
+          - replace:
+                  path: "/root/hwreport.txt"
+                  regexp: "bios_version"
+                  replace: "{{ ansible_bios_version }}"
+
+          - replace:
+                  path: "/root/hwreport.txt"
+                  regexp: "memory"
+                  replace: "{{ ansible_memtotal_mb }}"
+
+          - replace:
+                  path: "/root/hwreport.txt"
+                  regexp: "sda_size"
+                  replace: "{{ ansible_facts['devices']['sda']['size'] }}"
+            ignore_errors: yes
+            register: x
+ 
+          - replace:
+                  path: "/root/hwreport.txt"
+                  regexp: "sda_size"
+                  replace: "NONE"
+            when: x.failed == true
+
+          - replace:
+                  path: "/root/hwreport.txt"
+                  regexp: "sdb_size"
+                  replace: "{{ ansible_facts['devices']['sdb']['size'] }}"
+            ignore_errors: yes
+            register: y
+
+          - replace:
+                  path: "/root/hwreport.txt"
+                  regexp: "sdb_size"
+                  replace: "NONE"
+           when: y.failed == true

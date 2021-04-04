@@ -1,0 +1,28 @@
+- hosts: prod
+  tasks:
+
+         - group:
+                 name: webdev
+
+         - file:
+                 state: directory
+                 path: /webdev
+                 mode: "2775"
+                 group: webdev
+                 owner: apache
+                 setype: "httpd_sys_content_t"
+
+         - file:
+                 src: /webdev
+                 path: /var/www/html/myweb
+                 state: link
+                 mode: 2775
+                 owner: apache  
+                 setype: "httpd_sys_content_t"
+
+         - copy:
+                 dest: /webdev/index.html
+                 mode: 0640
+                 content: "Depolyment"
+                 owner: apache
+                 setype: "httpd_sys_content_t"

@@ -1,0 +1,16 @@
+[dev]
+node1
+
+[test]
+node2
+
+[prod]
+node3
+node4
+
+[balancer]
+node5
+
+[webserver:children]
+prod
+

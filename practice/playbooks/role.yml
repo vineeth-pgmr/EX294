@@ -1,0 +1,11 @@
+- hosts: all
+  task: [] 
+
+- hosts: balancer
+  roles:
+          - haproxy
+
+- hosts: prod
+  roles:
+          - phpinfo 
+            

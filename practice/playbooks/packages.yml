@@ -1,0 +1,16 @@
+- hosts: dev
+  tasks:
+          - yum:
+                  name:
+                        - 'mariadb'
+                        - 'php'
+                  state: present
+
+- hosts: test
+  tasks:
+          - yum:
+                  name: "@RPM Development Tools"
+                  state: persent
+
+          - yum:
+                 state: latest
