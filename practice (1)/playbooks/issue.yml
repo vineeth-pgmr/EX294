@@ -1,0 +1,18 @@
+- hosts: dev
+  tasks:
+          - copy:
+                  content: "Development"
+                  dest: "/etc/issue"
+
+- hosts: test
+  tasks:
+          - copy:
+                  content: "Manager"
+                  dest: "/etc/issue"
+
+- hosts: prod
+  tasks:
+
+          - copy:
+                  content: "Webserver"
+                  dest: "/etc/issue"

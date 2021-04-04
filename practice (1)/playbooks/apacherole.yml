@@ -1,0 +1,3 @@
+- hosts: prod
+  roles:
+        - role: apache

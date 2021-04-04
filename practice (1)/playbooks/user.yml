@@ -1,0 +1,29 @@
+- hosts: dev
+  vars_files:
+          - locker.yml
+          - user_list.yml
+
+  tasks:
+        - group:
+                name: devops
+        - user:
+                name: "{{item['name']}}"  
+                password: "{{ devpass | password_hash('sha512') }}"
+                group: devops
+          loop: "{{users}}"
+          when: "item['job'] == 'developer'"
+
+- hosts: prod
+  vars_files:
+          - locker.yml
+          - user_list.yml
+
+  tasks:
+        - group:
+                name: mgrpass
+        - user: 
+                name: "{{item['name']}}"  
+                password: "{{ mgrpass | password_hash('sha512') }}"
+                group: mgrsops
+          loop: "{{users}}"
+          when: "item['job'] == 'manager'"

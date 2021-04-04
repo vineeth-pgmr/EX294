@@ -1,0 +1,6 @@
+- name: haproxy
+  src: < url for haproxy role >
+
+- name: phpinfo
+  src: < url for phpinfo role >
+

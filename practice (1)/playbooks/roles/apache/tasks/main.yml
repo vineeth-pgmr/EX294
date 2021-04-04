@@ -1,0 +1,26 @@
+---
+# tasks file for apache
+- package:
+        name: "httpd"
+        state: present
+
+- service:
+        name: "firewalld"
+        state: started
+        enabled: yes
+
+- template:
+        src: hosts.j2
+        dest: /var/www/html/index.html
+
+- firewalld:
+        port: 80/tcp
+        immediate: yes
+        permanent: yes
+        state: enabled
+           
+- service:        
+        name: "httpd"
+        state: started
+        enabled: yes
+

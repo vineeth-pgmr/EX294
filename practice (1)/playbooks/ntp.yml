@@ -1,0 +1,15 @@
+- hosts: localhost
+  task:
+       - yum:
+                  name:
+                        - 'rhel-system-roles'
+                  state: present
+
+- hosts: dev
+  vars:
+    timesync_ntp_servers:
+      - hostname: <server name given in question>
+        iburst: yes
+
+  roles:
+    - rhel-system-roles.timesync
